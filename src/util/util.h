@@ -6,7 +6,7 @@
 
 #define LOG_PATH "./log.txt"
 
-void log(const char *format, ...);
-void logf(const char *format, ...);
+void logmsg(const char *format, ...);
+void logmsgf(const char *format, ...);
 
 #endif 

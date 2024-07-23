@@ -3,6 +3,6 @@
 
 #include "../blockchain/block.h"
 
-void transaction_push(Block *block, const char *transaction);
+void create_transacion(Block *block, const char *transaction);
 
 #endif

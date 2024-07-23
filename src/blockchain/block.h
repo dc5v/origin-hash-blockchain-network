@@ -15,7 +15,7 @@ typedef struct
     time_t epoch;
 } Block;
 
-Block* block_create(int index, const char *previous_hash);
+Block* create_block(int index, const char *previous_hash);
 void block_gen_hash(Block *block, char *output);
 void block_transaction_push(Block *block, const char *transaction);
 

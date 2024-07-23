@@ -4,7 +4,7 @@
 
 #include "util.h"
 
-void log(const char *format, ...)
+void logmsg(const char *format, ...)
 {
   va_list args;
   va_start(args, format);
@@ -13,7 +13,7 @@ void log(const char *format, ...)
   va_end(args);
 }
 
-void logf(const char *format, ...)
+void logmsgf(const char *format, ...)
 {
   FILE *file = fopen(LOG_PATH, "a");
 
