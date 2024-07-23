@@ -1,18 +1,20 @@
 #ifndef BLOCKCHAIN_H
 #define BLOCKCHAIN_H
 
+#include <stdbool.h>
 #include "block.h"
 
 #define MAX_BLOCKS 100
 
-typedef struct {
+typedef struct
+{
     Block *blocks[MAX_BLOCKS];
     int block_count;
 } Blockchain;
 
-Blockchain* create_blockchain();
+Blockchain *create_blockchain();
 void add_block(Blockchain *blockchain, Block *block);
-int is_blockchain_valid(Blockchain *blockchain);
-void free_blockchain(Blockchain *blockchain);
+bool blockchain_validate(Blockchain *blockchain);
+void blockchain_free(Blockchain *blockchain);
 
-#endif // BLOCKCHAIN_H
+#endif
