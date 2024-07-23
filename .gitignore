@@ -5,3 +5,4 @@ test/*
 *test*.c
 *.sh
 main
+log.txt
