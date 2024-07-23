@@ -2,6 +2,7 @@
 #define BLOCKCHAIN_H
 
 #include <stdbool.h>
+
 #include "block.h"
 
 #define MAX_BLOCKS 100

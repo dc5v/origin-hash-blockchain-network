@@ -1,12 +1,13 @@
-#include "blockchain.h"
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 
+#include "blockchain.h"
+
 Blockchain *create_blockchain()
 {
     Blockchain *blockchain = (Blockchain *)malloc(sizeof(Blockchain));
-    Block *genesis_block = block_create(0, "0");
+    Block *genesis_block = create_block(0, "0");
 
     blockchain->block_count = 0;
     add_block(blockchain, genesis_block);
@@ -46,8 +47,7 @@ bool blockchain_validate(Blockchain *blockchain)
 void blockchain_free(Blockchain *blockchain)
 {
     for (int i = 0; i < blockchain->block_count; i++)
-    {
         free(blockchain->blocks[i]);
-    }
+
     free(blockchain);
 }

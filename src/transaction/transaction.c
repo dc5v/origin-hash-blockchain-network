@@ -1,7 +1,8 @@
-#include "transaction.h"
 #include <string.h>
 
-void transaction_push(Block *block, const char *transaction)
+#include "transaction.h"
+
+void create_transacion(Block *block, const char *transaction)
 {
   for (int i = 0; i < MAX_TRANSACTIONS; i++)
   {
