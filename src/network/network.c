@@ -9,24 +9,6 @@
 #include "network.h"
 #include "../util/util.h"
 
-void *network_handle_client(void *arg)
-{
-  int client_fd = (intptr_t)arg;
-  char buffer[1024] = {0};
-  int bytes_read;
-
-  while ((bytes_read = read(client_fd, buffer, sizeof(buffer))) > 0)
-  {
-    log("Received: %s\n", buffer);
-
-    write(client_fd, buffer, bytes_read);
-    memset(buffer, 0, sizeof(buffer));
-  }
-
-  close(client_fd);
-  return NULL;
-}
-
 void create_server(int port)
 {
   int server_fd, client_fd;
@@ -46,6 +28,7 @@ void create_server(int port)
   if (bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
   {
     perror("bind failed");
+
     close(server_fd);
     exit(EXIT_FAILURE);
   }
@@ -53,11 +36,12 @@ void create_server(int port)
   if (listen(server_fd, 3) < 0)
   {
     perror("listen failed");
+
     close(server_fd);
     exit(EXIT_FAILURE);
   }
 
-  log("Server started on port %d\n", port);
+  logmsg("Server started on port %d\n", port);
 
   while (1)
   {
@@ -68,11 +52,28 @@ void create_server(int port)
     }
 
     pthread_t thread_id;
+
     if (pthread_create(&thread_id, NULL, network_handle_client, (void *)(intptr_t)client_fd) != 0)
-    {
       perror("pthread_create failed");
-    }
   }
 
   close(server_fd);
+}
+
+void *network_handle_client(void *arg)
+{
+  int bytes_read;
+  int client_fd = (intptr_t)arg;
+  char buffer[1024] = {0};
+
+  while ((bytes_read = read(client_fd, buffer, sizeof(buffer))) > 0)
+  {
+    logmsg("Received: %s\n", buffer);
+
+    write(client_fd, buffer, bytes_read);
+    memset(buffer, 0, sizeof(buffer));
+  }
+
+  close(client_fd);
+  return NULL;
 }
